@@ -4,10 +4,10 @@ import { RankList } from "../components";
 import RankLoader from "../components/RankLoader";
 
 const page = async (props: any) => {
-  const data = await getRank([6], +props.searchParams.page);
+  const data = await getRank([5, 6, 7], +props.searchParams.page);
   return (
     <div>
-      <RankLoader groupId={[6]} rankData={data} />
+      <RankLoader groupId={[5, 6, 7]} rankData={data} />
     </div>
   );
 };

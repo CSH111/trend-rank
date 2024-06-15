@@ -11,13 +11,18 @@
   },
   "dependencies": {
     "@prisma/client": "^5.15.0",
+    "@tanstack/react-query": "^5.45.0",
+    "axios": "^1.7.2",
     "next": "14.2.3",
+    "next-query-params": "^5.0.0",
     "react": "^18",
     "react-dom": "^18",
     "styled-components": "^6.1.11",
-    "styled-reset": "^4.5.2"
+    "styled-reset": "^4.5.2",
+    "use-query-params": "^2.2.1"
   },
   "devDependencies": {
+    "@babel/plugin-transform-private-methods": "^7.24.7",
     "@types/node": "^20.14.2",
     "@types/react": "^18",
     "@types/react-dom": "^18",

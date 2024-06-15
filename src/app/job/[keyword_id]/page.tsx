@@ -15,9 +15,7 @@ const page = async (props: { params: { keyword_id: string } }) => {
       },
     },
   });
-  // await pr.job_urls.findMany({take:30, include:{refined_keywords_on_job_url:},where:{refined_keywords_on_job_url:{every:{refined_keyword_id:keywordId}}}})
-  console.log("data: ", data?.refined_keywords_on_job_url[0]);
-  // return <div>d</div>;
+
   return (
     <div>
       <div>{data?.name}</div>

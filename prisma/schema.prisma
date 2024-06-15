@@ -40,10 +40,13 @@ model platforms {
 }
 
 model raw_keywords {
-  id                 Int              @id @default(autoincrement())
-  name               String           @db.VarChar(20)
-  refined_keyword_id Int
-  refined_keywords   refined_keywords @relation(fields: [refined_keyword_id], references: [id])
+  id                      Int              @id @default(autoincrement())
+  name                    String           @db.VarChar(20)
+  refined_keyword_id      Int
+  suffix_word_ban         String?          @db.VarChar(20)
+  prefix_word_ban         String?          @db.VarChar(20)
+  no_search_at_html_parse Int              @default(0) @db.TinyInt
+  refined_keywords        refined_keywords @relation(fields: [refined_keyword_id], references: [id])
 
   @@index([name])
   @@index([refined_keyword_id], map: "raw_keywords_refined_keyword_id_fkey")
@@ -57,6 +60,7 @@ model refined_keywords {
   raw_keywords                       raw_keywords[]
   refined_keywords_on_job_url        refined_keywords_on_job_url[]
   refined_keywords_on_keyword_groups refined_keywords_on_keyword_groups[]
+  refined_keywords_on_wanted_techs   refined_keywords_on_wanted_techs[]
 }
 
 model refined_keywords_on_job_url {
@@ -81,7 +85,24 @@ model refined_keywords_on_keyword_groups {
   @@index([refined_keyword_id], map: "refined_keywords_on_keyword_groups_refined_keyword_id_fkey")
 }
 
+model refined_keywords_on_wanted_techs {
+  id                 Int               @id @default(autoincrement())
+  wanted_tech_id     Int?
+  refined_keyword_id Int?
+  refined_keywords   refined_keywords? @relation(fields: [refined_keyword_id], references: [id], onDelete: Restrict)
+  wanted_techs       wanted_techs?     @relation(fields: [wanted_tech_id], references: [wanted_tech_id], onDelete: Restrict, map: "refined_keywords_on_wanted_techs_wanted_tech_wanted_tech_id_fkey")
+
+  @@index([refined_keyword_id], map: "refined_keywords_on_wanted_techs_refined_keyword_id_fkey")
+  @@index([wanted_tech_id], map: "refined_keywords_on_wanted_techs_wanted_tech_wanted_tech_id_fkey")
+}
+
 model report_dates {
   id   Int      @id @default(autoincrement())
   date DateTime @db.Date
+}
+
+model wanted_techs {
+  wanted_tech_id                   Int                                @id
+  wanted_name                      String                             @default("") @db.VarChar(50)
+  refined_keywords_on_wanted_techs refined_keywords_on_wanted_techs[]
 }
