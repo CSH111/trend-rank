@@ -1,14 +1,17 @@
 import { getRank } from "@/serverActions";
 import React from "react";
-import { RankList } from "../components";
-import RankLoader from "../components/RankLoader";
+
+import { PageContainer, RankLoader, RankTitle } from "../components";
 
 const page = async (props: any) => {
   const data = await getRank([5, 6, 7], +props.searchParams.page);
   return (
-    <div>
-      <RankLoader groupId={[5, 6, 7]} rankData={data} />
-    </div>
+    <>
+      <PageContainer>
+        <RankTitle title={"종합 순위"} />
+        <RankLoader rankData={data} />
+      </PageContainer>
+    </>
   );
 };
 

@@ -7,7 +7,7 @@ const page = async (props: any) => {
   const data = await getRank([6], +props.searchParams.page);
   return (
     <div>
-      <RankLoader groupId={[6]} rankData={data} />
+      <RankLoader rankData={data} />
     </div>
   );
 };

@@ -1,7 +1,6 @@
 import { pr } from "../../PrismaClient";
 
 export default async function getRank(groupId: number[], page: number, amount = 30) {
-  console.log("get Rank Run!");
   const recentReportDate = await pr.report_dates
     .findFirst({ orderBy: { id: "desc" } })
     .then((rdd) => rdd?.date);
