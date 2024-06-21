@@ -1,24 +1,24 @@
 "use client";
 
-import Image from "next/image";
-import { useRouter } from "next/navigation";
 import React from "react";
 import ImageComp from "./ImageComp";
 import { styled } from "@mui/material/styles";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
+import { tableCellClasses } from "@mui/material/TableCell";
+import {
+  Paper,
+  TableRow,
+  TableHead,
+  TableContainer,
+  TableCell,
+  TableBody,
+  Table,
+} from "@mui/material";
 import Link from "next/link";
 
 import { FiExternalLink } from "react-icons/fi";
 
 const RankList = (props: { rankData: { count: number; name: string; keywordId: number }[] }) => {
   const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL;
-  const router = useRouter();
   if (!props.rankData || !props.rankData.length || !props.rankData[0]) {
     return <></>;
   }
@@ -75,9 +75,9 @@ const RankList = (props: { rankData: { count: number; name: string; keywordId: n
                 </StyledTableCell>
                 <StyledTableCell align="right">{rank.count.toLocaleString()}</StyledTableCell>
                 <StyledTableCell align="center">
-                  <Link href={`/job/${rank.keywordId}`}>이동</Link>
+                  <Link href={`/job/${rank.keywordId}?page=1`}>이동</Link>
                   <>{` `}</>
-                  <Link href={`/job/${rank.keywordId}`} target={"_blank"}>
+                  <Link href={`/job/${rank.keywordId}?page=1`} target={"_blank"}>
                     <FiExternalLink />
                   </Link>
                 </StyledTableCell>

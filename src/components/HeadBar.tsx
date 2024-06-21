@@ -31,17 +31,11 @@ export default function HeadBar() {
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
-  // const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-  //   setAnchorElUser(event.currentTarget);
-  // };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
 
-  // const handleCloseUserMenu = () => {
-  //   setAnchorElUser(null);
-  // };
   const router = useRouter();
   return (
     <AppBar position="sticky">
@@ -66,7 +60,7 @@ export default function HeadBar() {
               textDecoration: "none",
             }}
           >
-            MYSTACK
+            DEVSTACKTREND
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>

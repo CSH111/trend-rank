@@ -1,9 +1,12 @@
 import { getRank } from "@/serverActions";
-import React from "react";
-import { RankList } from "../components";
+import { redirect } from "next/navigation";
 import RankLoader from "../components/RankLoader";
 
 const page = async (props: any) => {
+  if (!props.searchParams.page) {
+    redirect("/");
+  }
+
   const data = await getRank([6], +props.searchParams.page);
   return (
     <div>
