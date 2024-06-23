@@ -6,7 +6,7 @@ import { PageContainer, RankLoader, RankTitle } from "../components";
 
 const page = async (props: any) => {
   if (!props.searchParams.page) {
-    redirect("/");
+    redirect("/rank/all?page=1");
   }
 
   const data = await getRank([5, 6, 7], +props.searchParams.page);
