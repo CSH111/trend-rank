@@ -17,7 +17,10 @@ import Link from "next/link";
 
 import { FiExternalLink } from "react-icons/fi";
 
-const RankList = (props: { rankData: { count: number; name: string; keywordId: number }[] }) => {
+const RankList = (props: {
+  small?: boolean;
+  rankData: { count: number; name: string; keywordId: number }[];
+}) => {
   const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL;
   if (!props.rankData || !props.rankData.length || !props.rankData[0]) {
     return <></>;
@@ -25,16 +28,20 @@ const RankList = (props: { rankData: { count: number; name: string; keywordId: n
   return (
     <>
       {/* <CustomizedTables /> */}
-      <TableContainer component={Paper} sx={{ display: "flex", width: "auto" }}>
+      <TableContainer
+        component={Paper}
+        className="table-container"
+        sx={{ display: "flex", width: "auto" }}
+      >
         <Table aria-label="customized table">
           <colgroup>
-            <col style={{ width: "10%" }} />
-            <col style={{ width: "40%" }} />
-            <col style={{ width: "40%" }} />
-            <col style={{ width: "10%" }} />
+            <col style={{ width: props.small ? "20%" : "15%" }} />
+            <col style={{ width: props.small ? "30%" : "35%" }} />
+            <col style={{ width: props.small ? "30%" : "35%" }} />
+            <col style={{ width: props.small ? "20%" : "15%" }} />
           </colgroup>
           <TableHead>
-            <TableRow>
+            <StyledTableRow className={props.small ? "small" : ""}>
               <StyledTableCell
                 align="center"
 
@@ -51,27 +58,29 @@ const RankList = (props: { rankData: { count: number; name: string; keywordId: n
                 공고수
               </StyledTableCell>
               <StyledTableCell align="center">상세</StyledTableCell>
-            </TableRow>
+            </StyledTableRow>
           </TableHead>
           <TableBody>
             {props.rankData.map((rank, idx) => (
-              <StyledTableRow key={rank.name}>
+              <StyledTableRow key={rank.name} className={props.small ? "small" : ""}>
                 <StyledTableCell component="th" scope="row" align="center">
                   {idx + 1}
                 </StyledTableCell>
                 <StyledTableCell
                   align="left"
-                  sx={{ display: "flex", alignItems: "center", gap: "10px" }}
+                  // sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
-                  <ImageComp
-                    width={40}
-                    height={40}
-                    alt="tech_img"
-                    src={`${imageServerURL}/images/tech/${rank.name
-                      .replaceAll(" ", "-")
-                      .replaceAll("/", "-")}.png`}
-                  />
-                  {rank.name}
+                  <div className="img-name-box">
+                    <ImageComp
+                      width={40}
+                      height={40}
+                      alt="tech_img"
+                      src={`${imageServerURL}/images/tech/${rank.name
+                        .replaceAll(" ", "-")
+                        .replaceAll("/", "-")}.png`}
+                    />
+                    <div>{rank.name}</div>
+                  </div>
                 </StyledTableCell>
                 <StyledTableCell align="right">{rank.count.toLocaleString()}</StyledTableCell>
                 <StyledTableCell align="center">
@@ -105,6 +114,11 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.body}`]: {
     fontSize: "1.6rem",
   },
+  [`& .img-name-box`]: {
+    display: "flex",
+    alignItems: "center",
+    gap: "1rem",
+  },
 }));
 
 const StyledTableRow = styled(TableRow)(({ theme }) => ({
@@ -115,6 +129,16 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
   // hide last border
   "&:last-child td, &:last-child th": {
     border: 0,
+  },
+  "&.small": {
+    ["th"]: {
+      fontSize: "1.25rem",
+      // padding: "0.75rem",
+    },
+    ["td"]: {
+      fontSize: "1.25rem",
+      padding: "0.75rem",
+    },
   },
   // "&:hover": {
   //   backgroundColor: "#afafafd7",

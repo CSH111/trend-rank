@@ -3,3 +3,4 @@ export { default as ImageComp } from "./ImageComp";
 export { default as RankLoader } from "./RankLoader";
 export { default as RankTitle } from "./RankTitle";
 export { default as PageContainer } from "./PageContainer";
+export { default as RankPageDesc } from "./RankPageDesc";
