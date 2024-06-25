@@ -10,6 +10,70 @@ import Typography from "@mui/material/Typography";
 import InputBase from "@mui/material/InputBase";
 import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
+import Link from "next/link";
+import { SearchForm } from "./SearchForm";
+import HorizontalSearchBox from "./SearchForm/HorizontalSearchBox";
+
+export default function HeadBar(props: {
+  setIsSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
+  return (
+    <Box sx={{ flexGrow: 1 }} autoFocus>
+      <AppBar position="fixed" color="success">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            sx={{ mr: 2, display: { sm: "block", md: "none" } }}
+            onClick={() => {
+              props.setIsSideBarOpen((b) => !b);
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            variant="h1"
+            noWrap
+            component="h1"
+            sx={{
+              fontSize: "1.25rem",
+              flexGrow: 1,
+              // display: { xs: "none", sm: "block" },
+              fontFamily: "monospace",
+              fontWeight: 700,
+              letterSpacing: ".3rem",
+            }}
+            // sx={{
+            //   cursor: "pointer",
+            //   mr: 2,
+            //   display: { xs: "none", md: "flex" },
+            //   fontFamily: "monospace",
+            //   fontWeight: 700,
+            //   letterSpacing: ".3rem",
+            //   color: "inherit",
+            //   textDecoration: "none",
+            // }}
+          >
+            <Link href="/" style={{ color: "white", textDecoration: "none" }}>
+              DEVSTACKTREND
+            </Link>
+          </Typography>
+          <HorizontalSearchBox>
+            <SearchForm />
+          </HorizontalSearchBox>
+          <Search>
+            <SearchIconWrapper>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
+          </Search>
+        </Toolbar>
+      </AppBar>
+    </Box>
+  );
+}
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -19,7 +83,7 @@ const Search = styled("div")(({ theme }) => ({
     backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
   marginLeft: 0,
-  width: "100%",
+  // width: "100%",
   [theme.breakpoints.up("sm")]: {
     marginLeft: theme.spacing(1),
     width: "auto",
@@ -52,58 +116,3 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
-
-export default function HeadBar(props: {
-  setIsSideBarOpen: React.Dispatch<React.SetStateAction<boolean>>;
-}) {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="fixed" color="success">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            sx={{ mr: 2, display: { sm: "block", md: "none" } }}
-            onClick={() => {
-              props.setIsSideBarOpen((b) => !b);
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              flexGrow: 1,
-              // display: { xs: "none", sm: "block" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-            }}
-            // sx={{
-            //   cursor: "pointer",
-            //   mr: 2,
-            //   display: { xs: "none", md: "flex" },
-            //   fontFamily: "monospace",
-            //   fontWeight: 700,
-            //   letterSpacing: ".3rem",
-            //   color: "inherit",
-            //   textDecoration: "none",
-            // }}
-          >
-            DEVSTACKTREND
-          </Typography>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-          </Search>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
-}

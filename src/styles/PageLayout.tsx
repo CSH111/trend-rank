@@ -19,7 +19,7 @@ const PageLayout = (props: any) => {
   }, [isUnderMd]);
 
   return (
-    <Container isUnderMd={isUnderMd} isSideBarOpen={isSideBarOpen}>
+    <Container $isUnderMd={isUnderMd} $isSideBarOpen={isSideBarOpen}>
       <HeadBar setIsSideBarOpen={setIsSideBarOpen} />
       <div className="main-and-side-bar">
         <SideBar
@@ -33,7 +33,7 @@ const PageLayout = (props: any) => {
     </Container>
   );
 };
-const Container = styled.div<{ isUnderMd: boolean; isSideBarOpen: boolean }>`
+const Container = styled.div<{ $isUnderMd: boolean; $isSideBarOpen: boolean }>`
   .main-and-side-bar {
     margin-top: 64px;
     display: flex;
@@ -41,7 +41,7 @@ const Container = styled.div<{ isUnderMd: boolean; isSideBarOpen: boolean }>`
     }
     .ps-sidebar-container {
       ${(p) => {
-        if (p.isUnderMd) {
+        if (p.$isUnderMd) {
           return `
           height: 100%;
           `;
@@ -50,7 +50,7 @@ const Container = styled.div<{ isUnderMd: boolean; isSideBarOpen: boolean }>`
       }}
     }
     .main-cover {
-      display: ${(p) => (p.isUnderMd && p.isSideBarOpen ? "initial" : "none")};
+      display: ${(p) => (p.$isUnderMd && p.$isSideBarOpen ? "initial" : "none")};
       width: 100%;
       height: 100%;
       position: fixed;
@@ -60,7 +60,7 @@ const Container = styled.div<{ isUnderMd: boolean; isSideBarOpen: boolean }>`
     }
     main {
       flex: 1;
-      margin-left: ${(p) => (p.isUnderMd ? "0px" : "250px")};
+      margin-left: ${(p) => (p.$isUnderMd ? "0px" : "250px")};
     }
   }
 `;

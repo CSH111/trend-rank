@@ -1,5 +1,5 @@
-import { MainRanks } from "@/components";
-import { getRank } from "@/serverActions";
+import { MainDesc, MainPageLayout, MainRanks } from "@/components";
+import { getRank, getAllJobCount, getRecentReportDate } from "@/serverActions";
 import Image from "next/image";
 import styled from "styled-components";
 import { pr } from "../../PrismaClient";
@@ -8,14 +8,18 @@ import { RankList } from "./rank/components";
 
 export default async function Home() {
   const result = await pr.keyword_groups.findMany();
-  const [totalRankData, backRankData, frontRankData] = await Promise.all([
-    getRank([5, 6, 7], 1, 10),
-    getRank([5], 1, 10),
-    getRank([6], 1, 10),
-  ]);
+  const [totalRankData, backRankData, frontRankData, jobCount, recentReportDate] =
+    await Promise.all([
+      getRank([5, 6, 7], 1, 10),
+      getRank([5], 1, 10),
+      getRank([6], 1, 10),
+      getAllJobCount(),
+      getRecentReportDate(),
+    ]);
 
   return (
-    <>
+    <MainPageLayout>
+      <MainDesc recentDate={recentReportDate ?? new Date()} totalJobCount={jobCount} />
       <MainRanks
         allRanks={[
           { rankData: totalRankData, rankName: "종합 순위", link: "/rank/all" },
@@ -23,7 +27,7 @@ export default async function Home() {
           { rankData: backRankData, rankName: "백엔드 순위", link: "/rank/back-end" },
         ]}
       />
-    </>
+    </MainPageLayout>
   );
 }
 

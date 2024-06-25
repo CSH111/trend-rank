@@ -1,8 +1,13 @@
 import { getJob } from "@/serverActions";
+import { redirect } from "next/navigation";
 import React from "react";
 import { JobListLoader, JobPageContainer, JobTableDesc, JobTableHeader } from "../components";
 
 const page = async (props: { params: { keyword_id: string }; searchParams: any }) => {
+  if (!props.searchParams.page) {
+    redirect(`/job/${props.params.keyword_id}?page=1`);
+  }
+
   const keywordId = +props.params.keyword_id;
   const data = await getJob(keywordId, +props.searchParams.page);
 

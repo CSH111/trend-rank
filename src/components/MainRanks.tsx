@@ -18,10 +18,10 @@ const MainRanks = (props: {
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
-    <Container isUnderMd={isUnderMd}>
+    <Container $isUnderMd={isUnderMd}>
       {props.allRanks.map((rd) => {
         return (
-          <div className="title-and-table">
+          <div className="title-and-table" key={rd.rankName}>
             <div className="title-and-link">
               <h3>{rd.rankName}</h3>
               <div className="links">
@@ -41,11 +41,10 @@ const MainRanks = (props: {
 
 export default MainRanks;
 
-const Container = styled.div<{ isUnderMd: boolean }>`
+const Container = styled.div<{ $isUnderMd: boolean }>`
   display: grid;
-  grid-template-columns: ${(p) => (p.isUnderMd ? "auto" : "auto auto")};
+  grid-template-columns: ${(p) => (p.$isUnderMd ? "auto" : "auto auto")};
   gap: 2rem;
-  padding: 2rem;
   .title-and-table {
     display: flex;
     flex-direction: column;
