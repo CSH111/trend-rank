@@ -11,4 +11,7 @@ export const GlobalStyle = createGlobalStyle`
   .d-flex {
     display:flex;
   }
+  * {
+    box-sizing: border-box;
+  }
   `;

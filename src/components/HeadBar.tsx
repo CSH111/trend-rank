@@ -12,6 +12,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import SearchIcon from "@mui/icons-material/Search";
 import Link from "next/link";
 import { SearchForm } from "./SearchForm";
+import SearchBar from "./SearchBar";
 import HorizontalSearchBox from "./SearchForm/HorizontalSearchBox";
 
 export default function HeadBar(props: {
@@ -60,15 +61,7 @@ export default function HeadBar(props: {
               DEVSTACKTREND
             </Link>
           </Typography>
-          <HorizontalSearchBox>
-            <SearchForm />
-          </HorizontalSearchBox>
-          <Search>
-            <SearchIconWrapper>
-              <SearchIcon />
-            </SearchIconWrapper>
-            <StyledInputBase placeholder="Search…" inputProps={{ "aria-label": "search" }} />
-          </Search>
+          <SearchBar />
         </Toolbar>
       </AppBar>
     </Box>

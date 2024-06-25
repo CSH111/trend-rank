@@ -195,7 +195,7 @@ const SearchForm = ({ focusOnLoad = false }: SearchFormProps) => {
     setIsPopupOpened(false);
   };
   return (
-    <form onSubmit={handleSubmitWithEnter}>
+    <S.SytyledForm onSubmit={handleSubmitWithEnter}>
       <Autocomplete
         onOpen={handlePopupOpen}
         onClose={handlePopupClose}
@@ -235,11 +235,11 @@ const SearchForm = ({ focusOnLoad = false }: SearchFormProps) => {
           );
         }}
         PaperComponent={(props) => <S.Paper {...props} sx={{ boxShadow: 3 }} />}
-        PopperComponent={(props) => (
-          <Popper {...props} disablePortal modifiers={[{ name: "flip", enabled: false }]} />
-        )}
+        // PopperComponent={(props) => (
+        //   <Popper {...props} disablePortal modifiers={[{ name: "zz", enabled: true }]} />
+        // )}
       />
-    </form>
+    </S.SytyledForm>
   );
 };
 

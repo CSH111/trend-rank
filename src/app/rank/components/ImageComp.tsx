@@ -11,7 +11,6 @@ const ImageComp = (props: ComponentProps<typeof Image>) => {
     <Image
       {...props}
       onError={() => {
-        console.log("there error");
         setIsError(true);
       }}
     />

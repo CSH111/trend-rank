@@ -98,6 +98,21 @@ export const TextField = styled(MuiTextField, {
 `;
 css`justify-content`;
 
+export const SytyledForm = styled("form")`
+  .MuiAutocomplete-root {
+    width: 250px;
+    transition: all 0.3s;
+    &.Mui-focused {
+      width: 350px;
+    }
+  }
+  .base-Popper-root {
+    width: 350px !important;
+    right: 0 !important;
+    transform: translate3d(0, 0, 0, 0) !important;
+  }
+`;
+
 export const Paper = styled(MuiPaper)`
   ${() => css`
     border-radius: 0 0 15px 15px;
@@ -112,10 +127,10 @@ export const Paper = styled(MuiPaper)`
 
 export const HorizontalBox = styled(MuiBox)`
   ${() => css`
-    height: 100%;
+    /* height: 100%;
     display: flex;
     align-items: stretch;
-    flex: 1;
+    flex: 1; */
     form {
       flex: 1;
       /* width: 300px;  */
