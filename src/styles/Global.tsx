@@ -7,6 +7,7 @@ export const GlobalStyle = createGlobalStyle`
   ${reset}
   html, body {
     font-size:62.5%;
+    line-height:1.4;
   }
   .d-flex {
     display:flex;

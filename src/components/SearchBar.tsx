@@ -58,6 +58,8 @@ function SearchBar() {
     setResults(null);
     inputRef.current?.blur();
     router.push(`/job/${targetId}`);
+    setInputValue("");
+    setSavedInputValue("");
   };
   const handleKeyDown: KeyboardEventHandler<HTMLInputElement> = (e: any) => {
     if (e.code !== "ArrowDown" && e.code !== "ArrowUp" && e.code !== "Enter") {

@@ -1,6 +1,6 @@
 import { pr } from "../../PrismaClient";
 
-export default async function getAllJobCount(date?: Date) {
+export default async function getJobCountOnKeyword(keywordId: number, date?: Date) {
   const recentReportDate = await pr.report_dates.findFirst({ orderBy: { id: "desc" } });
   const targetDate = date ? date : recentReportDate?.date;
   const targetEndDate = (targetDate?.getTime() ?? 0) + 3600 * 1000 * 24;

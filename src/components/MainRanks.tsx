@@ -43,8 +43,8 @@ export default MainRanks;
 
 const Container = styled.div<{ $isUnderMd: boolean }>`
   display: grid;
-  grid-template-columns: ${(p) => (p.$isUnderMd ? "auto" : "auto auto")};
-  gap: 2rem;
+  grid-template-columns: ${(p) => (p.$isUnderMd ? "auto" : "1fr 1fr")};
+  gap: 3rem;
   .title-and-table {
     display: flex;
     flex-direction: column;

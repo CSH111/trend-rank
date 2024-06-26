@@ -20,9 +20,9 @@ const JobList = (props: { jobData: Awaited<ReturnType<typeof getJob>> }) => {
       <TableContainer component={Paper} sx={{ display: "flex", width: "auto" }}>
         <Table aria-label="customized table">
           <colgroup>
-            <col style={{ width: "10%" }} />
+            {/* <col style={{ width: "10%" }} />
             <col style={{ width: "60%" }} />
-            <col style={{ width: "30%" }} />
+            <col style={{ width: "30%" }} /> */}
           </colgroup>
           <TableHead>
             <TableRow>
@@ -53,9 +53,11 @@ const JobList = (props: { jobData: Awaited<ReturnType<typeof getJob>> }) => {
                   align="center"
                   // sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
+                  {/* <div className="link-box"> */}
                   <a href={urlData.job_urls.url} target={"_blank"}>
                     {urlData.job_urls.url}
                   </a>
+                  {/* </div> */}
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {urlData.job_urls.created_at.toISOString().split("T")[0]}
@@ -79,6 +81,9 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
   },
   [`&.${tableCellClasses.body}`]: {
     fontSize: "1.6rem",
+  },
+  ["a"]: {
+    wordBreak: "break-all",
   },
 }));
 

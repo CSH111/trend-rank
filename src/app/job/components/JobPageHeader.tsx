@@ -4,7 +4,7 @@ import { ImageComp } from "@/app/rank/components";
 import React from "react";
 import { styled } from "styled-components";
 
-const JobTableHeader = (props: { refind_keyword_name: string }) => {
+const JobPageHeader = (props: { refind_keyword_name: string }) => {
   const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL;
 
   return (
@@ -22,7 +22,7 @@ const JobTableHeader = (props: { refind_keyword_name: string }) => {
   );
 };
 
-export default JobTableHeader;
+export default JobPageHeader;
 
 const Container = styled.div`
   display: flex;
