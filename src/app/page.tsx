@@ -1,4 +1,4 @@
-import { MainDesc, MainPageLayout, MainRanks } from "@/components";
+import { LoadingIcon, MainDesc, MainPageLayout, MainRanks } from "@/components";
 import { getRank, getAllJobCount, getRecentReportDate } from "@/serverActions";
 import Image from "next/image";
 import styled from "styled-components";
@@ -7,7 +7,6 @@ import Comp from "../styles/Comp1";
 import { RankList } from "./rank/components";
 
 export default async function Home() {
-  const result = await pr.keyword_groups.findMany();
   const [totalRankData, backRankData, frontRankData, jobCount, recentReportDate] =
     await Promise.all([
       getRank([5, 6, 7], 1, 10),

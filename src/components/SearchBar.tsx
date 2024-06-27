@@ -5,26 +5,41 @@ import { useRouter } from "next/navigation";
 import { KeyboardEventHandler, useEffect, useRef, useState } from "react";
 import { styled } from "styled-components";
 import { Search } from "@mui/icons-material";
+import { useQuery } from "@tanstack/react-query";
+import LoadingIcon from "./LoadingIcon";
 
 function SearchBar() {
   const [inputValue, setInputValue] = useState("");
   const [savedInputValue, setSavedInputValue] = useState("");
   const router = useRouter();
-  const debSavedInputValue = useDebounce(savedInputValue);
+  const { value: debSavedInputValue, debounceContinuing } = useDebounce(savedInputValue);
   const [results, setResults] = useState<{ id: number; name: string }[] | null>(null);
   const [keyboardTargetIdx, setKeyboardTargetIdx] = useState<null | number>(null);
-  useEffect(() => {
-    (async () => {
-      setKeyboardTargetIdx(null);
-      if (debSavedInputValue === "") {
-        setResults(null);
-        return;
+
+  const { data, refetch, isLoading } = useQuery({
+    queryKey: [debSavedInputValue ?? "none"],
+    staleTime: 1000000,
+    queryFn: async ({ queryKey }) => {
+      if (!debSavedInputValue) {
+        return null;
       }
       const res = await axios.get(`/api/stack?search=${debSavedInputValue}`);
-      setResults(res.data);
-    })();
-  }, [debSavedInputValue]);
+      return res.data;
+    },
+  });
 
+  useEffect(() => {
+    setKeyboardTargetIdx(null);
+    if (debSavedInputValue === "") {
+      setResults(null);
+      return;
+    }
+  }, [debSavedInputValue]);
+  useEffect(() => {
+    if (!isLoading) {
+      setResults(data);
+    }
+  }, [data]);
   const [focused, setFocused] = useState(false);
   const [isPopupOpened, setIsPopupOpened] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -107,7 +122,16 @@ function SearchBar() {
   return (
     <Container $isPopupOpened={isPopupOpened}>
       <div className="input-box" tabIndex={0}>
-        <Search className="search-icon" />
+        {isLoading || debounceContinuing ? (
+          <>
+            <LoadingIcon size={"1rem"} className="search-icon" color="white" />
+          </>
+        ) : (
+          <>
+            <Search className="search-icon" />
+          </>
+        )}
+
         <input
           ref={inputRef}
           type="text"

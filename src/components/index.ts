@@ -4,3 +4,4 @@ export { default as MainDesc } from "./MainDesc";
 export { default as SideBar } from "./SideBar";
 export { default as MainPageLayout } from "./MainPageLayout";
 export { default as SearchBar } from "./SearchBar";
+export { default as LoadingIcon } from "./LoadingIcon";
