@@ -1,3 +1,4 @@
+import { Devider, Footer } from "@/components";
 import { getJob, getAllJobCount, getKeywordCounts } from "@/serverActions";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -22,18 +23,22 @@ const page = async (props: { params: { keyword_id: string }; searchParams: any }
   ]);
 
   return (
-    <JobPageContainer>
-      <JobPageHeader refind_keyword_name={data?.name ?? ""} />
-      <SectionTitle>공고수 변화</SectionTitle>
-      <KeywordChart data={keywordCounts} />
-      <SectionTitle>채용 공고 확인</SectionTitle>
-      <JobTableDesc
-        keywordName={data?.name ?? ""}
-        date={data.date?.date ?? new Date()}
-        jobCount={data.jobCount}
-      />
-      <JobListLoader jobData={data} />
-    </JobPageContainer>
+    <>
+      <JobPageContainer>
+        <JobPageHeader refind_keyword_name={data?.name ?? ""} />
+        <Devider />
+        <SectionTitle>공고수 변화</SectionTitle>
+        <KeywordChart data={keywordCounts} />
+        <SectionTitle>채용 공고 확인</SectionTitle>
+        <JobTableDesc
+          keywordName={data?.name ?? ""}
+          date={data.date?.date ?? new Date()}
+          jobCount={data.jobCount}
+        />
+        <JobListLoader jobData={data} />
+      </JobPageContainer>
+      <Footer />
+    </>
   );
 };
 

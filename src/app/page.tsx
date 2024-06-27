@@ -1,4 +1,12 @@
-import { LoadingIcon, MainDesc, MainPageLayout, MainRanks } from "@/components";
+import {
+  Devider,
+  Footer,
+  LoadingIcon,
+  MainDesc,
+  MainPageLayout,
+  MainRanks,
+  MainTitle,
+} from "@/components";
 import { getRank, getAllJobCount, getRecentReportDate } from "@/serverActions";
 import Image from "next/image";
 import styled from "styled-components";
@@ -17,16 +25,21 @@ export default async function Home() {
     ]);
 
   return (
-    <MainPageLayout>
-      <MainDesc recentDate={recentReportDate ?? new Date()} totalJobCount={jobCount} />
-      <MainRanks
-        allRanks={[
-          { rankData: totalRankData, rankName: "종합 순위", link: "/rank/all" },
-          { rankData: frontRankData, rankName: "프론트엔드 순위", link: "/rank/front-end" },
-          { rankData: backRankData, rankName: "백엔드 순위", link: "/rank/back-end" },
-        ]}
-      />
-    </MainPageLayout>
+    <>
+      <MainPageLayout>
+        <MainTitle />
+        <Devider />
+        <MainDesc recentDate={recentReportDate ?? new Date()} totalJobCount={jobCount} />
+        <MainRanks
+          allRanks={[
+            { rankData: totalRankData, rankName: "종합 순위", link: "/rank/all" },
+            { rankData: frontRankData, rankName: "프론트엔드 순위", link: "/rank/front-end" },
+            { rankData: backRankData, rankName: "백엔드 순위", link: "/rank/back-end" },
+          ]}
+        />
+      </MainPageLayout>
+      <Footer />
+    </>
   );
 }
 

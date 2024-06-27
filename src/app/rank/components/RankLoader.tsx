@@ -4,9 +4,15 @@ import RankList from "./RankList";
 import { useQueryParams } from "../../../hooks";
 import { styled } from "styled-components";
 import { Button } from "@mui/material";
+import { LoadingIcon } from "@/components";
 
 const RankLoader = (props: { rankData: { count: number; name: string; keywordId: number }[] }) => {
   const { queryParams, setQueryParams } = useQueryParams();
+  const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, [queryParams.get("page")]);
 
   return (
     <Conatiner>
@@ -14,12 +20,20 @@ const RankLoader = (props: { rankData: { count: number; name: string; keywordId:
       <StyledMuiBtn
         sx={{ fontSize: "1.6rem" }}
         variant="contained"
+        disabled={isLoading}
         onClick={() => {
+          setIsLoading(true);
           const page = Number(queryParams.get("page"));
           setQueryParams({ page: String(page + 1) }, true);
         }}
       >
-        순위 더보기
+        {isLoading ? (
+          <>
+            <LoadingIcon color="white" />
+          </>
+        ) : (
+          <>순위 더보기</>
+        )}
       </StyledMuiBtn>
     </Conatiner>
   );
@@ -34,5 +48,10 @@ const Conatiner = styled.div`
 `;
 const StyledMuiBtn = styled(Button)`
   align-self: center;
-  /* ${(p) => p.theme} */
+  background-color: #000000 !important;
+  width: 100%;
+  height: 4rem;
+  &:hover {
+    background-color: #383838 !important;
+  }
 `;

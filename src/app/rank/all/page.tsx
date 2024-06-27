@@ -1,3 +1,4 @@
+import { Devider, Footer } from "@/components";
 import { getAllJobCount, getRank, getRecentReportDate } from "@/serverActions";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -18,9 +19,11 @@ const page = async (props: any) => {
     <>
       <PageContainer>
         <RankTitle title={"종합 순위"} />
+        <Devider />
         <RankPageDesc allJobCount={allJobCount} reportDate={recentReportDate ?? new Date()} />
         <RankLoader rankData={data} />
       </PageContainer>
+      <Footer />
     </>
   );
 };

@@ -53,14 +53,19 @@ const KeywordChart = (props: { data: Awaited<ReturnType<typeof getKeywordCounts>
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="name" />
-          <YAxis />
+          <YAxis
+            domain={[
+              (min: number) => Math.floor(min * 0.9 * 0.01) * 100,
+              (max: number) => Math.ceil(max * 1.025 * 0.01) * 100,
+            ]}
+          />
           <Tooltip />
           {/* <Legend /> */}
           <Bar
             dataKey="count"
             width={20}
-            fill="#8884d8"
-            activeBar={<Rectangle fill="pink" stroke="blue" />}
+            fill="#ff9f5f"
+            // activeBar={<Rectangle fill="pink" stroke="blue" />}
           />
         </BarChart>
       </ResponsiveContainer>

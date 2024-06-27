@@ -35,7 +35,7 @@ const PageLayout = (props: any) => {
 };
 const Container = styled.div<{ $isUnderMd: boolean; $isSideBarOpen: boolean }>`
   .main-and-side-bar {
-    margin-top: 64px;
+    margin-top: ${(p) => (p.$isUnderMd ? "56px" : "64px")};
     display: flex;
     .aside {
     }
@@ -56,7 +56,7 @@ const Container = styled.div<{ $isUnderMd: boolean; $isSideBarOpen: boolean }>`
       position: fixed;
       background-color: #00000089;
       margin-left: 250px;
-      z-index: 9999;
+      z-index: 100;
     }
     main {
       flex: 1;

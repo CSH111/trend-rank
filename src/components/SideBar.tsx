@@ -23,6 +23,9 @@ const SideBar = (props: {
         // position: props.isUnderMd ? "fixed" : "relative",
         backgroundColor: "white",
         position: "fixed",
+        boxShadow: "0 5px 5px rgba(0,0,0,0.25), 0 5px 5px rgba(0,0,0,0.22)",
+        fontSize: "1.25rem",
+        zIndex: 9999,
         height: "100%",
         [`.${sidebarClasses.container}`]: {
           [`.ps-menuitem-root.ps-active`]: {
@@ -70,13 +73,6 @@ const SideBar = (props: {
       </Menu>
     </Sidebar>
   );
-  return <Container className="side-bar">SideBar</Container>;
 };
 
 export default SideBar;
-
-const Container = styled.div`
-  width: 20rem;
-  background-color: #9d9d9d;
-  height: 100vh;
-`;
