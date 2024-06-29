@@ -11,10 +11,13 @@ model job_urls {
   id                          Int                           @id @default(autoincrement())
   url                         String                        @unique @db.VarChar(50)
   created_at                  DateTime                      @default(now())
+  platform_id                 Int?
+  platforms                   platforms?                    @relation(fields: [platform_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_job_urls_platforms")
   refined_keywords_on_job_url refined_keywords_on_job_url[]
   url_count_dates             url_count_dates[]
 
   @@index([url])
+  @@index([platform_id], map: "FK_job_urls_platforms")
 }
 
 model keyword_counts {
@@ -34,10 +37,9 @@ model keyword_groups {
 }
 
 model platforms {
-  id         Int      @id @default(autoincrement())
-  name       String   @db.VarChar(20)
-  last_id    String   @db.VarChar(20)
-  updated_at DateTime @default(now())
+  id       Int        @id @default(autoincrement())
+  name     String     @db.VarChar(20)
+  job_urls job_urls[]
 }
 
 model raw_keywords {
