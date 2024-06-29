@@ -1,6 +1,7 @@
 "use client";
 
-import { AiOutlineLoading3Quarters } from "react-icons/ai";
+import { AiOutlineLoading3Quarters } from "@react-icons/all-files/ai/AiOutlineLoading3Quarters";
+
 import { styled } from "styled-components";
 
 const LoadingIcon = (props: { className?: string; size?: string | number; color?: string }) => {

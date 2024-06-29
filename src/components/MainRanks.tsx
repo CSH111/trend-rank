@@ -3,7 +3,7 @@
 import { RankList } from "@/app/rank/components";
 import { useMediaQuery, useTheme } from "@mui/material";
 import Link from "next/link";
-import { FiExternalLink } from "react-icons/fi";
+import { FiExternalLink } from "@react-icons/all-files/fi/FiExternalLink";
 import { styled } from "styled-components";
 
 const MainRanks = (props: {

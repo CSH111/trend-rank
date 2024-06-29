@@ -15,7 +15,7 @@ import {
 } from "@mui/material";
 import Link from "next/link";
 
-import { FiExternalLink } from "react-icons/fi";
+import { FiExternalLink } from "@react-icons/all-files/fi/FiExternalLink";
 
 const RankList = (props: {
   small?: boolean;
