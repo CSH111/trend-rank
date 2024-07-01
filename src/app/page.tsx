@@ -8,11 +8,8 @@ import {
   MainTitle,
 } from "@/components";
 import { getRank, getAllJobCount, getRecentReportDate } from "@/serverActions";
-import Image from "next/image";
-import styled from "styled-components";
-import { pr } from "../../PrismaClient";
-import Comp from "../styles/Comp1";
-import { RankList } from "./rank/components";
+
+export const revalidate = 1;
 
 export default async function Home() {
   const [totalRankData, backRankData, frontRankData, jobCount, recentReportDate] =
