@@ -5,3 +5,4 @@ export { default as getRecentReportDate } from "./getRecentReportDate";
 export { default as getStacks } from "./getStacks";
 export { default as getJobCountOnKeyword } from "./getJobCountOnKeyword";
 export { default as getKeywordCounts } from "./getKeywordCounts";
+export { default as getKeywordWithId } from "./getKeywordWithId";

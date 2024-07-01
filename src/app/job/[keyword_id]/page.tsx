@@ -1,5 +1,6 @@
 import { Devider, Footer } from "@/components";
-import { getJob, getAllJobCount, getKeywordCounts } from "@/serverActions";
+import { getJob, getAllJobCount, getKeywordCounts, getKeywordWithId } from "@/serverActions";
+import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import React from "react";
 import {
@@ -10,6 +11,15 @@ import {
   KeywordChart,
   SectionTitle,
 } from "../components";
+
+export async function generateMetadata({ params }: any): Promise<Metadata> {
+  const keyword = await getKeywordWithId(+params.keyword_id);
+  keyword?.name;
+  return {
+    title: `devstacktrend - ${keyword?.name} 채용 트렌드`,
+    description: `${keyword?.name} 개발자 채용 트렌드 및 채용공고 모음`,
+  };
+}
 
 const page = async (props: { params: { keyword_id: string }; searchParams: any }) => {
   if (!props.searchParams.page) {
