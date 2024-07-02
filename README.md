@@ -12,8 +12,8 @@ https://devstacktrend.sungho.site/
 - next.js를 이용한 프론트엔드 및 백엔드 개발
 - node.js, prisma, mysql 활용 채용공고 크롤링
 - express.js 활용한 이미지서버 구축
-- [크롤러 레포]('https://github.com/CSH111/trend-crawler')
-- [이미지서버 레포]('https://github.com/CSH111/img-server')
+- <a href="https://github.com/CSH111/trend-crawler">크롤러 레포</a>
+- <a href="https://github.com/CSH111/img-server">이미지서버 레포</a>
 
   <br>
 
@@ -67,13 +67,12 @@ https://devstacktrend.sungho.site/
 
 <br>
 
-## Session Auth
-
 ## 메인 페이지
 
 <div align="left">
-
+  <img src="https://github.com/CSH111/trend-rank/assets/105113833/1904186a-b15e-495b-8bb5-61e8eccafa96" width="650px" />
 </div>
+<br>
 
 - 최근 수집일 기준 모든 카테고리의 키워드 순위를 확인할 수 있습니다.
 
@@ -82,8 +81,9 @@ https://devstacktrend.sungho.site/
 ## 카테고리별 순위 페이지
 
 <div align="left">
-
+  <img src="https://github.com/CSH111/trend-rank/assets/105113833/cddd1816-c66e-4ac5-9cda-62598dae445e" width="650px" />
 </div>
+<br>
 
 - 카테고리별 순위를 확인할 수 있습니다.
 - 페이지네이션 및 페이지 이동시 스크롤 위치를 저장합니다.
@@ -91,6 +91,11 @@ https://devstacktrend.sungho.site/
 <br>
 
 ## 키워드 상세 페이지
+<div align="left">
+  <img src="https://github.com/CSH111/trend-rank/assets/105113833/8f12aa43-ba32-4f59-8fb0-597fc0b49ded" width="650px" />
+</div>
+
+<br>
 
 - 키워드별 공고수 변화 추이를 확인할 수 있습니다.
 - 키워드를 담고있는 채용공고 링크를 확인할 수 있습니다.
@@ -98,6 +103,10 @@ https://devstacktrend.sungho.site/
 <br>
 
 ## 키워드 검색 기능
+<div align="left">
+  <img src="https://github.com/CSH111/trend-rank/assets/105113833/8135ab2c-4fa1-4070-8ffc-96896256abf4" width="450px" />
+</div>
+<br>
 
 - 수집중인 키워드를 검색 및 상세페이지로 이동할 수 있습니다.
 - react-query를 활용해 api 요청횟수를 최적화했습니다.
@@ -107,9 +116,9 @@ https://devstacktrend.sungho.site/
 ## 반응형 레이아웃
 
 <div align="left">
-
+  <img src="https://github.com/CSH111/trend-rank/assets/105113833/edb935d1-00cb-4793-9d7c-155cc213e447" width="650px" />
 </div>
-
+<br>
 - 미디어쿼리를 이용해 반응형 레이아웃을 구현했습니다.
 
 <br>
