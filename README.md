@@ -1,36 +1,115 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# DEVSTACKTREND
 
-## Getting Started
+## 배포주소
 
-First, run the development server:
+https://devstacktrend.sungho.site/
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<br>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 프로젝트 개요
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 개발자 채용 트렌드를 확인할 수 있는 기술스택 랭킹 사이트
+- next.js를 이용한 프론트엔드 및 백엔드 개발
+- node.js, prisma, mysql 활용 채용공고 크롤링
+- express.js 활용한 이미지서버 구축
+- [크롤러 레포]('https://github.com/CSH111/trend-crawler')
+- [이미지서버 레포]('https://github.com/CSH111/img-server')
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  <br>
 
-## Learn More
+## 프로젝트 기간
 
-To learn more about Next.js, take a look at the following resources:
+- 2024/06/04 ~
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<br>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 기술스택
 
-## Deploy on Vercel
+- 프론트엔드
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/next.js-ffffff?style=for-the-badge&logo=next.js&logoColor=000000"/>
+  <img src="https://img.shields.io/badge/typescript-2f74c0?style=for-the-badge&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/react--query-f7f7f7?style=for-the-badge&logo=reactquery&logoColor=f73f51"/>
+  <img src="https://img.shields.io/badge/Material--UI-f6f8fa?style=for-the-badge&logo=mui&logoColor=007fff">
+  <img src="https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white"/>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<br>
+
+- 백엔드
+
+  <img src="https://img.shields.io/badge/next.js-ffffff?style=for-the-badge&logo=next.js&logoColor=000000"/>
+  <img src="https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white"/>
+  <img src="https://img.shields.io/badge/prisma-ffffff?style=for-the-badge&logo=prisma&logoColor=000000"/>
+  <img src="https://img.shields.io/badge/Express.js-404D59?style=for-the-badge&logo=express" />
+  <img src="https://img.shields.io/badge/mysql-00718b?style=for-the-badge&logo=mysql&logoColor=white" />
+
+<br>
+
+## 학습, 구현 및 개선사항
+
+- REST api 의 설계, 구현, 및 통신
+- Next 14 app router, server component 활용 ssr 구현
+- prisma ORM 활용 MYSQL db CRUD
+- express.js 활용 이미지 서버 구축
+- HeadBar, SearchBar, SideBar, 로딩처리, 반응형 웹 등 styled-components 및 mui를 이용한 UI구현
+- AWS RDS, AWS EC2, AWS ROUTE 53 활용 프로젝트 배포
+
+<br>
+
+## 기능소개
+
+- [메인 페이지](#메인-페이지)
+- [카테고리별 순위 페이지](#카테고리별-순위-페이지)
+- [키워드 상세 페이지](#키워드-상세-페이지)
+- [키워드 검색 기능](#키워드-검색-기능)
+- [반응형 레이아웃](#반응형-레이아웃)
+
+<br>
+
+## Session Auth
+
+## 메인 페이지
+
+<div align="left">
+
+</div>
+
+- 최근 수집일 기준 모든 카테고리의 키워드 순위를 확인할 수 있습니다.
+
+<br>
+
+## 카테고리별 순위 페이지
+
+<div align="left">
+
+</div>
+
+- 카테고리별 순위를 확인할 수 있습니다.
+- 페이지네이션 및 페이지 이동시 스크롤 위치를 저장합니다.
+
+<br>
+
+## 키워드 상세 페이지
+
+- 키워드별 공고수 변화 추이를 확인할 수 있습니다.
+- 키워드를 담고있는 채용공고 링크를 확인할 수 있습니다.
+
+<br>
+
+## 키워드 검색 기능
+
+- 수집중인 키워드를 검색 및 상세페이지로 이동할 수 있습니다.
+- react-query를 활용해 api 요청횟수를 최적화했습니다.
+
+<br>
+
+## 반응형 레이아웃
+
+<div align="left">
+
+</div>
+
+- 미디어쿼리를 이용해 반응형 레이아웃을 구현했습니다.
+
+<br>
