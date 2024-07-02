@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import RankList from "./RankList";
 import { useQueryParams } from "../../../hooks";
 import { styled } from "styled-components";
-import { Button } from "@mui/material";
+import { Button, useMediaQuery, useTheme } from "@mui/material";
 import { LoadingIcon } from "@/components";
 
 const RankLoader = (props: { rankData: { count: number; name: string; keywordId: number }[] }) => {
@@ -13,10 +13,12 @@ const RankLoader = (props: { rankData: { count: number; name: string; keywordId:
   useEffect(() => {
     setIsLoading(false);
   }, [queryParams.get("page")]);
+  const theme = useTheme();
+  const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
 
   return (
     <Conatiner>
-      <RankList rankData={props.rankData} />
+      <RankList rankData={props.rankData} small={isUnderMd} />
       <StyledMuiBtn
         sx={{ fontSize: "1.6rem" }}
         variant="contained"
