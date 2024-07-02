@@ -8,6 +8,9 @@ const Footer = () => {
     <StyledFooter>
       <div>created by chosungho</div>
       <div>contact: seongho6022@naver.com</div>
+      <a href="https://github.com/CSH111/trend-rank" target={"_blank"}>
+        information
+      </a>
     </StyledFooter>
   );
 };
