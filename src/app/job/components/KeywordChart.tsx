@@ -1,6 +1,7 @@
 "use client";
 
 import { getKeywordCounts } from "@/serverActions";
+import { useMediaQuery, useTheme } from "@mui/material";
 import {
   BarChart,
   Bar,
@@ -15,30 +16,16 @@ import {
   Rectangle,
 } from "recharts";
 import { styled } from "styled-components";
-const data = [
-  {
-    name: "Page A",
-    uv: 4000,
-    pv: 2400,
-  },
-  {
-    name: "Page B",
-    uv: 3000,
-    pv: 1398,
-  },
-  {
-    name: "Page C",
-    uv: 2000,
-    pv: 9800,
-  },
-];
 
 const KeywordChart = (props: { data: Awaited<ReturnType<typeof getKeywordCounts>> }) => {
+  const theme = useTheme();
+  const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
+
   return (
     <Container>
       <ResponsiveContainer minWidth={300} width={"65%"} height={300}>
         <BarChart
-          barSize={35}
+          barSize={isUnderMd ? 20 : 35}
           // width={500}
           // height={300}
           data={props.data.map((d) => {
@@ -47,7 +34,7 @@ const KeywordChart = (props: { data: Awaited<ReturnType<typeof getKeywordCounts>
           margin={{
             top: 5,
             right: 30,
-            left: 20,
+            left: 10,
             bottom: 5,
           }}
         >
@@ -83,7 +70,7 @@ const Container = styled.div`
     padding: 20px;
 
     .recharts-wrapper {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   }
 `;
