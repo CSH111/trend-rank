@@ -17,7 +17,7 @@ https://devstacktrend.sungho.site/
 
   <br>
 
-## 프로젝트 기간
+## 프로젝트 기간..
 
 - 2024/06/04 ~
 
