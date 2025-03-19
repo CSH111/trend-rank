@@ -91,6 +91,7 @@ https://devstacktrend.sungho.site/
 <br>
 
 ## 키워드 상세 페이지
+
 <div align="left">
   <img src="https://github.com/CSH111/trend-rank/assets/105113833/8f12aa43-ba32-4f59-8fb0-597fc0b49ded" width="650px" />
 </div>
@@ -103,6 +104,7 @@ https://devstacktrend.sungho.site/
 <br>
 
 ## 키워드 검색 기능
+
 <div align="left">
   <img src="https://github.com/CSH111/trend-rank/assets/105113833/8135ab2c-4fa1-4070-8ffc-96896256abf4" width="450px" />
 </div>
@@ -122,3 +124,8 @@ https://devstacktrend.sungho.site/
 - 미디어쿼리를 이용해 반응형 레이아웃을 구현했습니다.
 
 <br>
+
+### 개발예정사항
+
+- 상단바 상위권 순위표시 ui
+- 채용공고목록 플랫폼 필터
