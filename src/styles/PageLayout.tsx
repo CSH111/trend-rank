@@ -6,11 +6,17 @@ import React, { useState, useEffect } from "react";
 import { styled } from "styled-components";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
+import { usePathname } from "next/navigation";
 
 const PageLayout = (props: any) => {
   const theme = useTheme();
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
   const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   useEffect(() => {
     if (isUnderMd) {
