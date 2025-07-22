@@ -20,7 +20,7 @@ import { styled } from "styled-components";
 const KeywordChart = (props: { data: Awaited<ReturnType<typeof getKeywordCounts>> }) => {
   const theme = useTheme();
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
-
+  console.log("data: ", props.data);
   return (
     <Container>
       <ResponsiveContainer minWidth={300} width={"65%"} height={300}>
@@ -29,7 +29,7 @@ const KeywordChart = (props: { data: Awaited<ReturnType<typeof getKeywordCounts>
           // width={500}
           // height={300}
           data={props.data.map((d) => {
-            return { name: d.created_at.toISOString().split("T")[0], count: d.count };
+            return { name: d.report_dates?.date?.toISOString().split("T")[0], count: d.count };
           })}
           margin={{
             top: 5,

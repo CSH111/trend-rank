@@ -1,12 +1,13 @@
 import { pr } from "../../PrismaClient";
 
 export default async function getAllJobCount(date?: Date) {
-  const recentReportDate = await pr.report_dates.findFirst({ orderBy: { id: "desc" } });
-  const targetDate = date ? date : recentReportDate?.date;
-  const targetEndDate = (targetDate?.getTime() ?? 0) + 3600 * 1000 * 24;
+  const recentReportDate = await pr.report_dates.findFirst({
+    orderBy: { date: "desc" },
+    where: { is_active: 1 },
+  });
 
-  const count = await pr.url_count_dates.count({
-    where: { count_date: { gte: recentReportDate?.date, lt: new Date(targetEndDate) } },
+  const count = await pr.job_urls.count({
+    where: { report_date_id: recentReportDate?.id },
   });
 
   return count;
