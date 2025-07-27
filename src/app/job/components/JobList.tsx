@@ -60,6 +60,7 @@ const JobList = (props: { jobData: Awaited<ReturnType<typeof getJob>> }) => {
                   {/* </div> */}
                 </StyledTableCell>
                 <StyledTableCell align="center">
+                  {props.jobData.date?.date?.toISOString()?.split("T")?.[0]}
                   {/* {urlData.job_urls.created_at.toISOString().split("T")[0]} */}
                 </StyledTableCell>
               </StyledTableRow>
