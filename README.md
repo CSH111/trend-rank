@@ -8,7 +8,8 @@ https://devstacktrend.sungho.my/
 
 ## 프로젝트 개요
 
-- 개발자 채용 트렌드를 확인할 수 있는 기술스택 랭킹 사이트
+- 개발자 채용 트렌드를 확인할 수 있는 기술스택 랭킹 사이트 개발
+- MySQL 활용 DB구축
 - next.js를 이용한 프론트엔드 및 백엔드 개발
 - node.js, prisma, mysql 활용 채용공고 크롤링
 - nginx 활용한 이미지서버 구축
@@ -46,13 +47,22 @@ https://devstacktrend.sungho.my/
 <br>
 
 ## 학습, 구현 및 개선사항
-
+- 데이터 수집을 위한 ERD 설계 및 MySQL DB 구축
 - REST api 의 설계, 구현, 및 통신
 - Next 14 app router, server component 활용 ssr 구현
 - prisma ORM 활용 MYSQL db CRUD
 - nginx 활용 이미지 서버 구축
 - HeadBar, SearchBar, SideBar, 로딩처리, 반응형 웹 등 styled-components 및 mui를 이용한 UI구현
 - AWS RDS, AWS EC2, AWS ROUTE 53 활용 프로젝트 배포
+
+<br>
+
+## ERD 및 핵심개념 설명
+
+<img width="1306" height="915" alt="erd" src="https://github.com/user-attachments/assets/8a93e675-45b0-4a48-9979-c514053e6194" />
+
+- raw_keywords(n) - refined_keywords(1)의 구조기반입니다.
+- 타겟 채용공고에 raw_keywords(ex react,React,React.js) 가 하나라도 있다면 refined_keywords(ex. React)로 집계됩니다.
 
 <br>
 
