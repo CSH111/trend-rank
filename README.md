@@ -2,7 +2,7 @@
 
 ## 배포주소
 
-https://devstacktrend.sungho.site/
+https://devstacktrend.sungho.my/
 
 <br>
 
@@ -11,9 +11,8 @@ https://devstacktrend.sungho.site/
 - 개발자 채용 트렌드를 확인할 수 있는 기술스택 랭킹 사이트
 - next.js를 이용한 프론트엔드 및 백엔드 개발
 - node.js, prisma, mysql 활용 채용공고 크롤링
-- express.js 활용한 이미지서버 구축
+- nginx 활용한 이미지서버 구축
 - <a href="https://github.com/CSH111/trend-crawler">크롤러 레포</a>
-- <a href="https://github.com/CSH111/img-server">이미지서버 레포</a>
 
   <br>
 
@@ -51,7 +50,7 @@ https://devstacktrend.sungho.site/
 - REST api 의 설계, 구현, 및 통신
 - Next 14 app router, server component 활용 ssr 구현
 - prisma ORM 활용 MYSQL db CRUD
-- express.js 활용 이미지 서버 구축
+- nginx 활용 이미지 서버 구축
 - HeadBar, SearchBar, SideBar, 로딩처리, 반응형 웹 등 styled-components 및 mui를 이용한 UI구현
 - AWS RDS, AWS EC2, AWS ROUTE 53 활용 프로젝트 배포
 
@@ -129,3 +128,14 @@ https://devstacktrend.sungho.site/
 
 - 상단바 상위권 순위표시 ui
 - 채용공고목록 플랫폼 필터
+- 채용공고목록 플랫폼별 ui(이미지)
+
+<br>
+
+### 실행
+
+```
+npm i
+npm run build
+npm run start
+```
