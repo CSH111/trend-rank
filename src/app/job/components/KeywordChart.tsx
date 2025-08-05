@@ -20,7 +20,6 @@ import { styled } from "styled-components";
 const KeywordChart = (props: { data: Awaited<ReturnType<typeof getKeywordCounts>> }) => {
   const theme = useTheme();
   const isUnderMd = useMediaQuery(theme.breakpoints.down("md"));
-  console.log("data: ", props.data);
   return (
     <Container>
       <ResponsiveContainer minWidth={300} width={"65%"} height={300}>

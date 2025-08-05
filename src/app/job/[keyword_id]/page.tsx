@@ -31,7 +31,6 @@ const page = async (props: { params: { keyword_id: string }; searchParams: any }
     getJob(keywordId, +props.searchParams.page),
     getKeywordCounts(keywordId),
   ]);
-  console.log("keywordCounts: ", keywordCounts);
   return (
     <>
       <JobPageContainer>
