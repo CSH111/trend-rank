@@ -28,7 +28,10 @@ const page = async (props: { params: { keyword_id: string }; searchParams: any }
 
   const keywordId = +props.params.keyword_id;
   const [data, keywordCounts] = await Promise.all([
-    getJob(keywordId, +props.searchParams.page),
+    getJob({
+      keywordId,
+      page: +props.searchParams.page,
+    }),
     getKeywordCounts(keywordId),
   ]);
   return (

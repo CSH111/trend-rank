@@ -1,6 +1,12 @@
 import { pr } from "../../PrismaClient";
 
-export default async function getJob(keywordId: number, page: number, amount = 30) {
+export default async function getJob(args: {
+  keywordId: number;
+  page: number;
+  amount?: number; //30,
+  platformId?: number;
+}) {
+  const { keywordId, page, amount = 30, platformId = 0 } = args;
   const dateRow = await pr.report_dates.findFirst({
     orderBy: { id: "desc" },
     where: { is_active: 1 },
@@ -12,15 +18,22 @@ export default async function getJob(keywordId: number, page: number, amount = 3
         where: { job_urls: { report_date_id: dateRow?.id } },
         include: { job_urls: true },
         take: amount * page,
-        // skip: (page - 1) * amount,
         orderBy: { job_url_id: "desc" },
       },
     },
   });
 
+  const count = await pr.refined_keywords_on_job_url.count({
+    where: {
+      refined_keyword_id: keywordId,
+      job_urls: {
+        report_date_id: dateRow?.id || 0,
+      },
+    },
+  });
   return {
     ...keywordData,
     date: dateRow,
-    jobCount: keywordData?.refined_keywords_on_job_url.length || 0,
+    jobCount: count || 0,
   };
 }
