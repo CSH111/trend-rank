@@ -13,6 +13,8 @@ import {
   Table,
 } from "@mui/material";
 import Link from "next/link";
+import { getTitleFromUrl } from "@/utils/getTitleFromUrl";
+import JobItem from "./JobItem";
 
 const JobList = (props: { jobData: Awaited<ReturnType<typeof getJob>> }) => {
   return (
@@ -53,11 +55,7 @@ const JobList = (props: { jobData: Awaited<ReturnType<typeof getJob>> }) => {
                   align="center"
                   // sx={{ display: "flex", alignItems: "center", gap: "10px" }}
                 >
-                  {/* <div className="link-box"> */}
-                  <a href={urlData.job_urls.url} target={"_blank"}>
-                    {urlData.job_urls.url}
-                  </a>
-                  {/* </div> */}
+                  <JobItem url={urlData.job_urls.url} key={urlData.job_urls.url} />
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {props.jobData.date?.date?.toISOString()?.split("T")?.[0]}
