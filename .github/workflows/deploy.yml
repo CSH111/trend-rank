@@ -204,7 +204,7 @@ jobs:
             pm2 status
 
             # 로그 확인 (최근 50줄)
-            pm2 logs ${{ env.PM2_APP_NAME }} --lines 50 --nostream
+            # pm2 logs ${{ env.PM2_APP_NAME }} --lines 50 --nostream
 
             # 메모리 사용량 체크
             # pm2 info ${{ env.PM2_APP_NAME }}
