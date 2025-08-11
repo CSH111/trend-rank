@@ -197,7 +197,7 @@ jobs:
               echo "Starting application for the first time..."
               pm2 start ecosystem.config.js
               pm2 save
-              pm2 startup systemd -u ${{ secrets.DEPLOY_USER }} --hp /home/${{ secrets.DEPLOY_USER }}
+              pm2 startup systemd
             fi
 
             # PM2 상태 확인
