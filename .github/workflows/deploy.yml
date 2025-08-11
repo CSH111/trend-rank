@@ -31,6 +31,11 @@ jobs:
       - name: Run tests
         run: npm test --if-present
 
+      - name: Check env var
+        run: echo $NEXT_PUBLIC_IMAGE_SERVER_URL
+        env:
+          NEXT_PUBLIC_IMAGE_SERVER_URL: ${{ secrets.NEXT_PUBLIC_IMAGE_SERVER_URL }}
+
       - name: Build Next.js application
         run: npm run build
         env:
