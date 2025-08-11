@@ -43,14 +43,14 @@ jobs:
         run: |
           # 필요한 파일들만 포함하여 배포 패키지 생성
           tar -czf deploy.tar.gz \
-            --exclude=node_modules \
             --exclude=.git \
             --exclude=.github \
             .next \
             public \
             package.json \
             package-lock.json \
-            next.config.mjs
+            next.config.mjs \
+            node_modules
             # server.js \
 
       - name: Upload build artifact
@@ -179,9 +179,6 @@ jobs:
             # 배포 파일 압축 해제
             tar -xzf deploy.tar.gz
             rm deploy.tar.gz
-
-            # 의존성 설치 (production only)
-            npm ci --production
 
             # PM2가 설치되어 있는지 확인
             if ! command -v pm2 &> /dev/null; then
