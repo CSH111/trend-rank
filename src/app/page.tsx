@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic"; // 👈 이 줄만 추가!
+
 import {
   Devider,
   Footer,
