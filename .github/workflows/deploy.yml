@@ -14,7 +14,7 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
-
+    environment: deploy
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,13 +33,13 @@ jobs:
 
       - name: Check env var
         run: echo $NEXT_PUBLIC_IMAGE_SERVER_URL
-        environment: deploy
+
         env:
           NEXT_PUBLIC_IMAGE_SERVER_URL: ${{ secrets.NEXT_PUBLIC_IMAGE_SERVER_URL }}
 
       - name: Build Next.js application
         run: npm run build
-        environment: deploy
+
         env:
           SKIP_BUILD_STATIC_GENERATION: true
           IMAGE_SERVER_URL: ${{ secrets.IMAGE_SERVER_URL }}
