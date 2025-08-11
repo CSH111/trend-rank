@@ -21,7 +21,7 @@ const RankList = (props: {
   small?: boolean;
   rankData: { count: number; name: string; keywordId: number }[];
 }) => {
-  const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL;
+  const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL || process.env.IMAGE_SERVER_URL;
   if (!props.rankData || !props.rankData.length || !props.rankData[0]) {
     return <></>;
   }

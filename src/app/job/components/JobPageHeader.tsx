@@ -5,7 +5,7 @@ import React from "react";
 import { styled } from "styled-components";
 
 const JobPageHeader = (props: { refind_keyword_name: string }) => {
-  const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL;
+  const imageServerURL = process.env.NEXT_PUBLIC_IMAGE_SERVER_URL || process.env.IMAGE_SERVER_URL;
 
   return (
     <Container>
