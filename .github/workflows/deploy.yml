@@ -113,7 +113,6 @@ jobs:
               instance_var: 'INSTANCE_ID',
               // 배포 후 헬스체크
               post_update: [
-                'npm install --production',
                 'npm run build'
               ]
             }],
@@ -125,7 +124,7 @@ jobs:
                 ref: 'origin/main',
                 repo: 'git@github.com:${{ github.repository }}.git',
                 path: '${{ env.DEPLOY_PATH }}',
-                'post-deploy': 'npm install --production && npm run build && pm2 reload ecosystem.config.js --env production',
+                'post-deploy': 'npm run build && pm2 reload ecosystem.config.js --env production',
                 'pre-deploy-local': '',
                 ssh_options: 'StrictHostKeyChecking=no'
               }
