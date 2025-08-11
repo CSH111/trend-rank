@@ -43,15 +43,15 @@ jobs:
         run: |
           # 필요한 파일들만 포함하여 배포 패키지 생성
           tar -czf deploy.tar.gz \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=.github \
             .next \
             public \
             package.json \
             package-lock.json \
-            next.config.mjs \
+            next.config.mjs
             # server.js \
-            --exclude=node_modules \
-            --exclude=.git \
-            --exclude=.github
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
