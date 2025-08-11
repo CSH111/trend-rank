@@ -36,6 +36,7 @@ jobs:
         env:
           IMAGE_SERVER_URL: ${{ secrets.IMAGE_SERVER_URL }}
           NEXT_PUBLIC_IMAGE_SERVER_URL: ${{ secrets.NEXT_PUBLIC_IMAGE_SERVER_URL }}
+          DATABASE_URL: "mysql://dummy:dummy@localhost:3306/dummy"
 
       - name: Create deployment package
         run: |
