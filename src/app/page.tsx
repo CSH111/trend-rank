@@ -31,7 +31,7 @@ export default async function Home() {
           allRanks={[
             { rankData: totalRankData, rankName: "종합 순위", link: "/rank/all" },
             { rankData: frontRankData, rankName: "프론트엔드 순위", link: "/rank/front-end" },
-            { rankData: backRankData, rankName: "백엔드 순위", link: "/rank/back-end" },
+            { rankData: backRankData, rankName: "백엔드 순위.", link: "/rank/back-end" },
           ]}
         />
       </MainPageLayout>

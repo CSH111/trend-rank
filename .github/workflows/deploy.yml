@@ -1,0 +1,276 @@
+name: Deploy Next.js to Cloud Server
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: "20.15.0"
+  PM2_APP_NAME: "trend-rank"
+  DEPLOY_PATH: "/data/build/trend-rank"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test --if-present
+
+      - name: Build Next.js application
+        run: npm run build
+        env:
+          IMAGE_SERVER_URL: ${{ secrets.IMAGE_SERVER_URL }}
+          NEXT_PUBLIC_IMAGE_SERVER_URL: ${{ secrets.NEXT_PUBLIC_IMAGE_SERVER_URL }}
+
+      - name: Create deployment package
+        run: |
+          # 필요한 파일들만 포함하여 배포 패키지 생성
+          tar -czf deploy.tar.gz \
+            .next \
+            public \
+            package.json \
+            package-lock.json \
+            next.config.js \
+            server.js \
+            --exclude=node_modules \
+            --exclude=.git \
+            --exclude=.github
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: deployment-package
+          path: deploy.tar.gz
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop'
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: deployment-package
+
+      - name: Create ecosystem.config.js
+        run: |
+          cat > ecosystem.config.js << 'EOF'
+          module.exports = {
+            apps: [{
+              name: '${{ env.PM2_APP_NAME }}',
+              script: 'npm',
+              args: 'start',
+              cwd: '${{ env.DEPLOY_PATH }}',
+              instances: 2,
+              exec_mode: 'cluster',
+              watch: false,
+              max_memory_restart: '1G',
+              env: {
+                NODE_ENV: 'production',
+                PORT: 3001,
+                DATABASE_URL: '${{ secrets.DATABASE_URL }}',
+                IMAGE_SERVER_URL: '${{ secrets.IMAGE_SERVER_URL }}',
+          	    NEXT_PUBLIC_IMAGE_SERVER_URL: '${{ secrets.NEXT_PUBLIC_IMAGE_SERVER_URL }}'
+              },
+              error_file: '${{ env.DEPLOY_PATH }}/logs/err.log',
+              out_file: '${{ env.DEPLOY_PATH }}/logs/out.log',
+              log_file: '${{ env.DEPLOY_PATH }}/logs/combined.log',
+              time: true,
+              kill_timeout: 5000,
+              listen_timeout: 5000,
+              wait_ready: true,
+              autorestart: true,
+              max_restarts: 10,
+              min_uptime: '10s',
+              // 무중단 배포 설정
+              instances: 1,
+              exec_mode: 'cluster',
+              // 성능 최적화
+              node_args: '--max-old-space-size=2048',
+              // 모니터링
+              merge_logs: true,
+              vizion: false,
+              instance_var: 'INSTANCE_ID',
+              // 배포 후 헬스체크
+              post_update: [
+                'npm install --production',
+                'npm run build'
+              ]
+            }],
+            
+            deploy: {
+              production: {
+                user: 'ubuntu',
+                host: '${{ secrets.DEPLOY_HOST }}',
+                ref: 'origin/main',
+                repo: 'git@github.com:${{ github.repository }}.git',
+                path: '${{ env.DEPLOY_PATH }}',
+                'post-deploy': 'npm install --production && npm run build && pm2 reload ecosystem.config.js --env production',
+                'pre-deploy-local': '',
+                ssh_options: 'StrictHostKeyChecking=no'
+              }
+            }
+          };
+          EOF
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            # 배포 디렉토리 생성
+            mkdir -p ${{ env.DEPLOY_PATH }}
+            mkdir -p ${{ env.DEPLOY_PATH }}/logs
+
+            # 이전 백업 생성 (선택사항)
+            if [ -d "${{ env.DEPLOY_PATH }}/.next" ]; then
+              echo "Creating backup..."
+              tar -czf ${{ env.DEPLOY_PATH }}/backup-$(date +%Y%m%d-%H%M%S).tar.gz \
+                -C ${{ env.DEPLOY_PATH }} \
+                .next public package.json
+            fi
+
+      - name: Transfer files to server
+        uses: appleboy/scp-action@v0.1.5
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          source: "deploy.tar.gz,ecosystem.config.js"
+          target: "${{ env.DEPLOY_PATH }}"
+
+      - name: Execute deployment
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            cd ${{ env.DEPLOY_PATH }}
+
+            # 배포 파일 압축 해제
+            tar -xzf deploy.tar.gz
+            rm deploy.tar.gz
+
+            # 의존성 설치 (production only)
+            npm ci --production
+
+            # PM2가 설치되어 있는지 확인
+            if ! command -v pm2 &> /dev/null; then
+              echo "Installing PM2..."
+              npm install -g pm2
+            fi
+
+            # PM2 프로세스 상태 확인
+            if pm2 list | grep -q "${{ env.PM2_APP_NAME }}"; then
+              echo "Reloading application with zero-downtime..."
+              pm2 reload ecosystem.config.js --update-env
+            else
+              echo "Starting application for the first time..."
+              pm2 start ecosystem.config.js
+              pm2 save
+              pm2 startup systemd -u ${{ secrets.DEPLOY_USER }} --hp /home/${{ secrets.DEPLOY_USER }}
+            fi
+
+            # PM2 상태 확인
+            pm2 status
+
+            # 로그 확인 (최근 50줄)
+            pm2 logs ${{ env.PM2_APP_NAME }} --lines 50 --nostream
+
+            # 메모리 사용량 체크
+            pm2 info ${{ env.PM2_APP_NAME }}
+
+      - name: Verify deployment
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            # 애플리케이션 상태 확인
+            pm2 list
+
+            # 포트 확인
+            netstat -tlnp | grep :3001 || ss -tlnp | grep :3001
+
+      - name: Cleanup old backups
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            # 7일 이상 된 백업 파일 삭제
+            find ${{ env.DEPLOY_PATH }} -name "backup-*.tar.gz" -mtime +7 -delete
+
+            # PM2 로그 로테이션
+            pm2 flush
+
+            # 디스크 사용량 확인
+            df -h ${{ env.DEPLOY_PATH }}
+
+  rollback:
+    runs-on: ubuntu-latest
+    if: failure() && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    needs: deploy
+
+    steps:
+      - name: Rollback deployment
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_SSH_KEY }}
+          port: ${{ secrets.DEPLOY_PORT || 22 }}
+          script: |
+            cd ${{ env.DEPLOY_PATH }}
+
+            # 가장 최근 백업 찾기
+            LATEST_BACKUP=$(ls -t backup-*.tar.gz 2>/dev/null | head -1)
+
+            if [ -n "$LATEST_BACKUP" ]; then
+              echo "Rolling back to $LATEST_BACKUP..."
+              tar -xzf "$LATEST_BACKUP"
+              pm2 reload ecosystem.config.js --update-env
+              echo "Rollback completed"
+            else
+              echo "No backup found for rollback"
+              exit 1
+            fi
+
+  notify:
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    if: always()
+
+    steps:
+      - name: Send notification
+        run: |
+          # Slack, Discord, 이메일 등 알림 전송
+          echo "Deployment status: ${{ job.status }}"
+          # 실제 알림 로직 구현
