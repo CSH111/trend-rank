@@ -2,6 +2,50 @@
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
 
+/**
+ * @swagger
+ * /api/proxy:
+ *   get:
+ *     summary: 웹 페이지 프록시
+ *     description: 외부 URL을 프록시하여 HTML 콘텐츠를 반환합니다.
+ *     tags: [Proxy]
+ *     parameters:
+ *       - in: query
+ *         name: url
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: 프록시할 외부 URL
+ *         example: "https://example.com"
+ *     responses:
+ *       200:
+ *         description: HTML 콘텐츠 반환 성공
+ *         content:
+ *           text/html:
+ *             schema:
+ *               type: string
+ *               description: HTML 콘텐츠
+ *       400:
+ *         description: 필수 파라미터 누락
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "URL required"
+ *       500:
+ *         description: 프록시 요청 실패
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   example: "Failed to fetch: Network error"
+ */
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const url = searchParams.get("url");
