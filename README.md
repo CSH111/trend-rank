@@ -17,7 +17,7 @@ https://devstacktrend.sungho.my/
 
   <br>
 
-## 프로젝트 기간....
+## 프로젝트 기간
 
 - 2024/06/04 ~
 
@@ -53,7 +53,9 @@ https://devstacktrend.sungho.my/
 - prisma ORM 활용 MYSQL db CRUD
 - nginx 활용 이미지 서버 구축
 - HeadBar, SearchBar, SideBar, 로딩처리, 반응형 웹 등 styled-components 및 mui를 이용한 UI구현
-- AWS RDS, AWS EC2, AWS ROUTE 53 활용 프로젝트 배포
+- AWS RDS, AWS EC2, AWS ROUTE 53 활용 프로젝트 배포, NCP 클라우드 이전
+- Github Actions를 이용한 CI/CD 파이프라인 구축
+  - 무중단배포, 클라우드 성능이슈 해결을 위해 사전빌드 방식 채택
 
 <br>
 
