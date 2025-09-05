@@ -49,13 +49,20 @@ https://devstacktrend.sungho.my/
 ## 학습, 구현 및 개선사항
 - 데이터 수집을 위한 ERD 설계 및 MySQL DB 구축
 - REST api 의 설계, 구현, 및 통신
-- Next 14 app router, server component 활용 ssr 구현
+- Next 14 app router, server component(server action) 활용 ssr 구현
 - prisma ORM 활용 MYSQL db CRUD
 - nginx 활용 이미지 서버 구축
 - HeadBar, SearchBar, SideBar, 로딩처리, 반응형 웹 등 styled-components 및 mui를 이용한 UI구현
 - AWS RDS, AWS EC2, AWS ROUTE 53 활용 프로젝트 배포, NCP 클라우드 이전
 - Github Actions를 이용한 CI/CD 파이프라인 구축
   - 무중단배포, 클라우드 성능이슈 해결을 위해 사전빌드 방식 채택
+- Swagger 를 통한 api 문서화
+
+<br>
+
+## Swagger Api 문서
+- [문서링크](https://devstacktrend.sungho.my/docs)
+- 대부분의 데이터는 Nextjs Server Action을 통해 주입되고있으며 client side 에서의 ajax 요청에 대한 부문만 api 작업이되어있습니다.
 
 <br>
 
@@ -67,6 +74,8 @@ https://devstacktrend.sungho.my/
 - 타겟 채용공고에 raw_keywords(ex react,React,React.js) 가 하나라도 있다면 refined_keywords(ex. React)로 집계됩니다.
 
 <br>
+
+
 
 ## 기능소개
 
